@@ -1,65 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WCS Lab Test</title>
-
-    <style>
-        body{
-            margin:0;
-            font-family:Arial, Helvetica, sans-serif;
-            background:#f4f6f9;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-        }
-
-        .card{
-            background:white;
-            padding:50px;
-            border-radius:15px;
-            box-shadow:0 8px 20px rgba(0,0,0,.15);
-            text-align:center;
-            max-width:600px;
-        }
-
-        h1{
-            color:#0056b3;
-            margin-bottom:15px;
-        }
-
-        p{
-            color:#555;
-            font-size:18px;
-        }
-
-        .success{
-            margin-top:25px;
-            color:green;
-            font-weight:bold;
-            font-size:22px;
-        }
-    </style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wireless Communications System Laboratory at Kongju National University" />
+  <title>WCS Lab | Wireless Communications System Laboratory</title>
+  <style>
+    :root{
+      --bg:#f7f9fc; --surface:#ffffff; --ink:#102033; --muted:#64748b;
+      --primary:#0b4ea2; --primary-2:#0f766e; --line:#e2e8f0; --soft:#eaf2ff;
+      --shadow:0 18px 55px rgba(15,23,42,.10); --radius:22px; --max:1180px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65}
+    a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{max-width:var(--max);margin:auto;padding:0 22px}
+    .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:-.03em}
+    .mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--primary),#38bdf8);color:#fff;display:grid;place-items:center;box-shadow:0 10px 25px rgba(11,78,162,.25)}
+    .brand small{display:block;font-weight:650;color:var(--muted);font-size:12px;letter-spacing:0}
+    .links{display:flex;gap:19px;align-items:center;font-size:14px;font-weight:700;color:#334155}
+    .links a:hover{color:var(--primary)}
+    .menu{display:none;border:0;background:var(--soft);border-radius:12px;padding:10px 12px;font-size:22px;color:var(--primary)}
+    .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 18% 10%,rgba(56,189,248,.20),transparent 28%),linear-gradient(135deg,#07182f 0%,#0b4ea2 48%,#0f766e 100%);color:#fff}
+    .hero:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,#000,transparent 85%)}
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.18fr .82fr;gap:42px;align-items:center;min-height:660px;padding:74px 22px}
+    .eyebrow{margin:0 0 12px;color:#38bdf8;text-transform:uppercase;font-size:13px;font-weight:900;letter-spacing:.15em}
+    h1{font-size:clamp(42px,6vw,76px);line-height:1.02;letter-spacing:-.06em;margin:0 0 24px}
+    .subtitle{font-size:clamp(18px,2vw,23px);max-width:760px;color:#dbeafe;margin:0 0 30px}
+    .buttons{display:flex;gap:13px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:13px 20px;font-weight:850;border:1px solid transparent;transition:.2s}.btn.primary{background:#fff;color:var(--primary)}.btn.secondary{border-color:rgba(255,255,255,.35);color:#fff}.btn:hover{transform:translateY(-2px)}
+    .hero-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:30px;padding:30px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+    .hero-card h2{margin:0 0 18px;font-size:22px}.focus{display:grid;gap:13px}.focus div{background:rgba(255,255,255,.12);padding:15px;border-radius:16px;border:1px solid rgba(255,255,255,.12)}
+    section{padding:86px 0}.section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:34px}.section-head h2{font-size:clamp(30px,3vw,44px);line-height:1.12;letter-spacing:-.04em;margin:0}.section-head p{max-width:680px;color:var(--muted);margin:12px 0 0}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:-52px;position:relative;z-index:3}.stat{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:25px;box-shadow:var(--shadow)}.stat b{font-size:36px;color:var(--primary);display:block;line-height:1}.stat span{color:var(--muted);font-weight:700}
+    .grid{display:grid;gap:20px}.cards{grid-template-columns:repeat(3,1fr)}.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:0 10px 30px rgba(15,23,42,.05);transition:.2s}.card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}.card .icon{width:46px;height:46px;border-radius:15px;background:var(--soft);display:grid;place-items:center;color:var(--primary);font-size:23px;margin-bottom:17px}.card h3{font-size:20px;letter-spacing:-.02em;margin:0 0 9px}.card p{color:var(--muted);margin:0}
+    .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px;align-items:center}.portrait{min-height:420px;border-radius:34px;background:linear-gradient(145deg,#eaf2ff,#fff);border:1px solid var(--line);box-shadow:var(--shadow);display:grid;place-items:center;text-align:center;padding:34px}.portrait .initial{width:128px;height:128px;border-radius:34px;background:linear-gradient(135deg,var(--primary),#38bdf8);display:grid;place-items:center;color:white;font-size:44px;font-weight:900;margin:auto auto 20px}.bio{background:var(--surface);border:1px solid var(--line);border-radius:34px;padding:34px;box-shadow:var(--shadow)}.tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.tag{background:#eef6ff;color:#0b4ea2;border:1px solid #cfe4ff;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:800}
+    .pubs{display:grid;gap:14px}.pub{display:grid;grid-template-columns:80px 1fr;gap:18px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:19px}.year{color:var(--primary);font-weight:950}.pub h3{margin:0 0 5px;font-size:18px;letter-spacing:-.02em}.pub p{margin:0;color:var(--muted)}
+    .timeline{border-left:3px solid #cfe4ff;margin-left:10px;display:grid;gap:18px}.item{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;margin-left:22px}.item:before{content:"";position:absolute;left:-34px;top:28px;width:17px;height:17px;border-radius:50%;background:var(--primary);border:4px solid #dbeafe}.item span{font-weight:900;color:var(--primary)}.item h3{margin:6px 0}.item p{margin:0;color:var(--muted)}
+    .members{grid-template-columns:repeat(4,1fr)}.member{text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px}.avatar{width:82px;height:82px;border-radius:26px;background:linear-gradient(135deg,#dbeafe,#ccfbf1);margin:auto auto 13px;display:grid;place-items:center;font-weight:950;color:var(--primary);font-size:22px}.member h3{margin:0}.member p{margin:4px 0 0;color:var(--muted)}
+    .news{grid-template-columns:repeat(3,1fr)}.news time{font-weight:900;color:var(--primary)}
+    .join{background:linear-gradient(135deg,#0b4ea2,#0f766e);color:#fff;border-radius:34px;padding:46px;display:flex;justify-content:space-between;gap:28px;align-items:center}.join p{color:#dbeafe;max-width:760px}.contact{grid-template-columns:repeat(3,1fr)}.contact a{color:var(--primary);font-weight:850}
+    footer{padding:34px 0;border-top:1px solid var(--line);background:#fff;color:var(--muted)}.foot{display:flex;justify-content:space-between;gap:18px;align-items:center}.foot a{color:var(--primary);font-weight:850}
+    @media(max-width:920px){.menu{display:block}.links{position:absolute;top:72px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);display:none;flex-direction:column;align-items:flex-start;padding:18px 22px}.links.open{display:flex}.hero-inner,.about{grid-template-columns:1fr}.hero-inner{min-height:auto}.stats,.cards,.members,.news,.contact{grid-template-columns:1fr 1fr}.section-head{display:block}.join{display:block}.join .btn{margin-top:18px}}
+    @media(max-width:620px){.stats,.cards,.members,.news,.contact{grid-template-columns:1fr}.brand-text{font-size:14px}.brand small{display:none}.hero-card{padding:22px}.pub{grid-template-columns:1fr}.foot{display:block}.nav{height:66px}.links{top:66px}section{padding:64px 0}}
+  </style>
 </head>
-
 <body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="#top"><span class="mark">WCS</span><span class="brand-text">Wireless Communications System Laboratory<small>Kongju National University</small></span></a>
+    <button class="menu" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
+    <nav class="links">
+      <a href="#about">About</a><a href="#research">Research</a><a href="#professor">Professor</a><a href="#publications">Publications</a><a href="#projects">Projects</a><a href="#members">Members</a><a href="#join">Join Us</a><a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
 
-<div class="card">
+<main id="top">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <p class="eyebrow">Kongju National University</p>
+        <h1>Wireless Communications System Laboratory</h1>
+        <p class="subtitle">Toward secure, reliable, and intelligent wireless communications beyond 6G.</p>
+        <div class="buttons"><a class="btn primary" href="#research">Explore Research →</a><a class="btn secondary" href="#join">Join the Lab</a></div>
+      </div>
+      <aside class="hero-card">
+        <h2>Research Focus</h2>
+        <div class="focus">
+          <div><strong>Physical Layer Security</strong><br>Secrecy outage and secure transmission analysis</div>
+          <div><strong>RIS / MIMO Systems</strong><br>Performance analysis for intelligent radio environments</div>
+          <div><strong>V2X & 6G Networks</strong><br>Future wireless systems and reliability enhancement</div>
+        </div>
+      </aside>
+    </div>
+  </section>
 
-<h1>Wireless Communications System Laboratory</h1>
+  <div class="container stats">
+    <div class="stat"><b>45+</b><span>SCI Journal Papers</span></div>
+    <div class="stat"><b>20+</b><span>IEEE Journal Papers</span></div>
+    <div class="stat"><b>20+</b><span>Patents</span></div>
+    <div class="stat"><b>20+</b><span>Years of Experience</span></div>
+  </div>
 
-<p>Kongju National University</p>
+  <section id="about">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">About WCS Lab</p><h2>Advancing wireless communication theory and systems</h2></div><p>WCS Lab develops analytical models and practical insights for next-generation wireless communication systems, focusing on secure, reliable, and intelligent networks.</p></div>
+      <div class="grid cards">
+        <article class="card"><div class="icon">🔐</div><h3>Secure Communications</h3><p>Information-theoretic security, secrecy capacity, secrecy outage probability, and eavesdropping models.</p></article>
+        <article class="card"><div class="icon">📡</div><h3>Wireless Systems</h3><p>MIMO, beamforming, antenna selection, user scheduling, relay networks, and diversity combining.</p></article>
+        <article class="card"><div class="icon">🧠</div><h3>Intelligent Networks</h3><p>RIS-assisted communications, 6G wireless systems, AI-enabled communication technologies, and V2X.</p></article>
+      </div>
+    </div>
+  </section>
 
-<p>This is a GitHub Pages deployment test.</p>
+  <section id="research" style="background:#fff">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Research Areas</p><h2>Core research topics</h2></div></div>
+      <div class="grid cards">
+        <article class="card"><div class="icon">🛡️</div><h3>Physical Layer Security</h3><p>Secrecy performance analysis in fading channels, imperfect CSI, multiple eavesdroppers, and secure diversity schemes.</p></article>
+        <article class="card"><div class="icon">🪞</div><h3>RIS-assisted Communications</h3><p>Secure RIS-aided transmission, path/RIS selection, phase errors, and performance analysis.</p></article>
+        <article class="card"><div class="icon">📶</div><h3>MIMO Communications</h3><p>MU-MIMO, MRT, ZF, TAS, MRC, SC, generalized selection combining, and scheduling algorithms.</p></article>
+        <article class="card"><div class="icon">🔁</div><h3>Relay Networks</h3><p>AF/DF relay systems, relay-user selection, dual-hop secrecy, and Nakagami/Rayleigh fading analysis.</p></article>
+        <article class="card"><div class="icon">🚗</div><h3>V2X Communications</h3><p>Secure and reliable communication technologies for vehicle-to-everything systems and standards.</p></article>
+        <article class="card"><div class="icon">✨</div><h3>AI-enabled Wireless Systems</h3><p>Emerging research on AI-assisted radio networks, intelligent propagation, and future 6G systems.</p></article>
+      </div>
+    </div>
+  </section>
 
-<div class="success">
-✅ GitHub Pages is working!
-</div>
+  <section id="professor">
+    <div class="container about">
+      <div class="portrait"><div><div class="initial">DL</div><h2>Donghun Lee, Ph.D.</h2><p>Associate Professor<br>Department of Information and Communication Engineering<br>Kongju National University</p></div></div>
+      <div class="bio"><p class="eyebrow">Director</p><h2>Professor Donghun Lee</h2><p>Dr. Donghun Lee received his Ph.D. in Information and Communication Engineering from Gwangju Institute of Science and Technology (GIST). His research expertise includes MIMO technologies for wireless communications, physical layer security, V2X systems, spectrum sharing, and wireless performance analysis.</p><p>Before joining Kongju National University, he worked at Chosun University, the Korean Agency for Technology and Standards, ETRI, and LG Innotek/LIG Nex1, gaining broad experience in academia, public research, standardization, and industry.</p><div class="tags"><span class="tag">Physical Layer Security</span><span class="tag">MIMO</span><span class="tag">RIS</span><span class="tag">V2X</span><span class="tag">Spectrum Sharing</span></div></div>
+    </div>
+  </section>
 
-</div>
+  <section id="publications" style="background:#fff">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Selected Publications</p><h2>Recent representative journal papers</h2></div><p>Selected papers from IEEE Transactions on Vehicular Technology, IEEE Transactions on Wireless Communications, IEEE Wireless Communications Letters, and related journals.</p></div>
+      <div class="pubs">
+        <article class="pub"><div class="year">2026</div><div><h3>Secrecy Analysis of SM-ZF Scheme with User Scheduling per Antenna in MU-MIMO Systems</h3><p>IEEE Transactions on Vehicular Technology</p></div></article>
+        <article class="pub"><div class="year">2025</div><div><h3>Secrecy Analysis of RIS-Aided Path Selection in Downlink Communication Systems</h3><p>IEEE Transactions on Vehicular Technology</p></div></article>
+        <article class="pub"><div class="year">2024</div><div><h3>Secrecy Performance of Diversity Scheme Using Generalized Selection Combining in Dual-Hop AF-Relay Systems</h3><p>IEEE Transactions on Vehicular Technology</p></div></article>
+        <article class="pub"><div class="year">2023</div><div><h3>Secrecy Rate of TAS in AF-Relay Systems with Multi-Antenna Relay and User Over Non-Identical Channel Estimation Error</h3><p>IEEE Transactions on Vehicular Technology</p></div></article>
+        <article class="pub"><div class="year">2022</div><div><h3>Secrecy Outage Probability of MIMO Diversity Schemes Over Integer and Real Valued Nakagami Fading Channels</h3><p>IEEE Wireless Communications Letters</p></div></article>
+      </div>
+    </div>
+  </section>
 
+  <section id="projects">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Projects</p><h2>Research and development experience</h2></div></div>
+      <div class="timeline">
+        <div class="item"><span>2021–2024</span><h3>MIMO-based Physical Layer Security Core Technology for V2X Communications</h3><p>Supported by the National Research Foundation of Korea.</p></div>
+        <div class="item"><span>2015–2019</span><h3>Early Warning System for Overseas Recall Products</h3><p>Sponsored by the Ministry of Trade, Industry and Energy.</p></div>
+        <div class="item"><span>2013–2015</span><h3>Spectrum Super-highway Technology for Mobile Big-bang</h3><p>Research on dynamic spectrum sharing and coexistence technologies.</p></div>
+        <div class="item"><span>2009–2013</span><h3>Radio Requirements of Coexistence for Dynamic Spectrum Access</h3><p>Wireless coexistence and IEEE 802.19 spectrum sharing activities.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="members" style="background:#fff">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Members</p><h2>People</h2></div><p>Member information can be updated with student names, photos, research topics, and alumni positions.</p></div>
+      <div class="grid members">
+        <div class="member"><div class="avatar">DL</div><h3>Donghun Lee</h3><p>Professor</p></div>
+        <div class="member"><div class="avatar">MS</div><h3>M.S. Students</h3><p>To be updated</p></div>
+        <div class="member"><div class="avatar">UG</div><h3>Undergraduate Researchers</h3><p>To be updated</p></div>
+        <div class="member"><div class="avatar">AL</div><h3>Alumni</h3><p>To be updated</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="news">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">News</p><h2>Recent updates</h2></div></div>
+      <div class="grid news">
+        <article class="card"><time>2026</time><h3>WCS Lab website launched</h3><p>The official WCS Lab website is now available through GitHub Pages.</p></article>
+        <article class="card"><time>2026</time><h3>New research topics open</h3><p>RIS-assisted secure communications, SIM, and AI-enabled wireless systems are open for student research.</p></article>
+        <article class="card"><time>2025</time><h3>Recent IEEE journal publications</h3><p>Recent papers accepted in IEEE Transactions on Vehicular Technology and related journals.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <div class="container">
+      <div class="join"><div><p class="eyebrow">Join Us</p><h2>We are looking for motivated students.</h2><p>Students interested in wireless communications, physical layer security, MIMO systems, RIS-assisted communications, relay networks, and AI for wireless systems are encouraged to contact us.</p></div><a class="btn primary" href="mailto:mmdangg@hotmail.com">Contact Professor</a></div>
+    </div>
+  </section>
+
+  <section id="contact" style="background:#fff">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Contact</p><h2>Wireless Communications System Laboratory</h2></div></div>
+      <div class="grid contact">
+        <div class="card"><h3>Department</h3><p>Department of Information and Communication Engineering<br>Kongju National University</p></div>
+        <div class="card"><h3>Email</h3><p><a href="mailto:mmdangg@hotmail.com">mmdangg@hotmail.com</a></p></div>
+        <div class="card"><h3>Location</h3><p>Kongju National University<br>Republic of Korea</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="container foot"><p>© <span id="year"></span> Wireless Communications System Laboratory, Kongju National University.</p><a href="#top">Back to top ↑</a></div></footer>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.querySelectorAll('.links a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.links').classList.remove('open')));
+</script>
 </body>
 </html>
